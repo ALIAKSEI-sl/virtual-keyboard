@@ -15,6 +15,7 @@ const parameters = {
 };
 
 document.addEventListener('keydown', (event) => {
+  // console.log(event);
   inputField.focus();
   const key = document.querySelector(`.${event.code}`);
   if (key) {
@@ -24,7 +25,7 @@ document.addEventListener('keydown', (event) => {
       event.preventDefault();
       actionsInput(inputField, '  ');
       inputField.selectionStart = startPosition + 2;
-    } else if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+    } else if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && !event.repeat) {
       key.classList.add('active');
       parameters.caseUp = !parameters.caseUp;
       changMarkup(parameters);
@@ -48,7 +49,7 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keyup', (event) => {
   const key = document.querySelector(`.${event.code}`);
   if (key) {
-    if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+    if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && !event.repeat) {
       key.classList.remove('active');
       parameters.caseUp = !parameters.caseUp;
       changMarkup(parameters);

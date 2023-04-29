@@ -1,3 +1,5 @@
+const keys = document.querySelectorAll('.key');
+
 export function actionsBackspace(inputField) {
   const selection = window.getSelection();
   const startPosition = inputField.selectionStart;
@@ -49,6 +51,53 @@ export function actionsInput(inputField, content) {
   selection.removeAllRanges();
 }
 
+export function render(lang, status) {
+  keys.forEach((key) => {
+    const itemsLang = Array.from(key.children);
+    itemsLang.forEach((langKey) => {
+      if (langKey.classList.contains(lang)) {
+        langKey.classList.remove('hidden');
+        const itemLang = langKey.children;
+        const items = Array.from(itemLang);
+        items.forEach((item) => {
+          if (item.classList.contains(status)) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      } else {
+        const itemLang = langKey.children;
+        langKey.classList.add('hidden');
+        const items = Array.from(itemLang);
+        items.forEach((item) => {
+          item.classList.add('hidden');
+        });
+      }
+    });
+  });
+}
+
 export function changMarkup(parameters) {
-  console.log(parameters);
+  if (parameters.language === 'ru') {
+    if (parameters.caseUp && parameters.caps) {
+      render('ru', 'shiftCaps');
+    } else if (parameters.caseUp) {
+      render('ru', 'caseUp');
+    } else if (parameters.caps) {
+      render('ru', 'caps');
+    } else {
+      render('ru', 'caseDown');
+    }
+  } else {
+    if (parameters.caseUp && parameters.caps) {
+      render('eng', 'shiftCaps');
+    } else if (parameters.caseUp) {
+      render('eng', 'caseUp');
+    } else if (parameters.caps) {
+      render('eng', 'caps');
+    } else {
+      render('eng', 'caseDown');
+    }
+  }
 }

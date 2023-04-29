@@ -520,7 +520,7 @@ export default {
         caseDown: 'п',
         caseUp: 'П',
         caps: 'П',
-        shiftCaps: 'П',
+        shiftCaps: 'п',
       },
       eng: {
         caseDown: 'g',

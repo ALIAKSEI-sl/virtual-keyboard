@@ -15,7 +15,6 @@ const parameters = {
 };
 
 document.addEventListener('keydown', (event) => {
-  // console.log(event);
   inputField.focus();
   const key = document.querySelector(`.${event.code}`);
   if (key) {
@@ -35,6 +34,7 @@ document.addEventListener('keydown', (event) => {
       changMarkup(parameters);
     } else {
       key.classList.add('active');
+      // event.preventDefault();
     }
   } else {
     event.preventDefault();
@@ -82,6 +82,7 @@ wrapper.addEventListener('mousedown', (event) => {
       case ('AltLeft'):
       case ('MetaLeft'):
       case ('ControlLeft'):
+        break;
       case ('ShiftLeft'):
         parameters.caseUp = !parameters.caseUp;
         changMarkup(parameters);

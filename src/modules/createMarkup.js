@@ -24,7 +24,7 @@ wrapper.append(descriptionOs);
 
 const descriptionLang = document.createElement('p');
 descriptionLang.classList.add('description');
-descriptionLang.textContent = 'Для переключения языка комбинация левые alt + shift';
+descriptionLang.textContent = 'Для переключения языка комбинация левые ctrl + alt';
 wrapper.append(descriptionLang);
 
 const rows = [];

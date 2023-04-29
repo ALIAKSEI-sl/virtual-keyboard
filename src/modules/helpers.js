@@ -48,3 +48,7 @@ export function actionsInput(inputField, content) {
   inputField.selectionEnd = startPosition + content.length;
   selection.removeAllRanges();
 }
+
+export function changMarkup(parameters) {
+  console.log(parameters);
+}

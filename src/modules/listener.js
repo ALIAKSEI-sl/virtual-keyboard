@@ -1,4 +1,4 @@
-import { actionsBackspace, actionsDelete, actionsInput } from './actions.js';
+import action from './action.js';
 import changeMarkup from './changeMarkup.js';
 
 const inputField = document.querySelector('.input-field');
@@ -10,16 +10,22 @@ const parameters = {
   caps: false,
 };
 
+const languageLocal = localStorage.getItem('virtKeybLeng');
+if (languageLocal && languageLocal !== 'ru') {
+  parameters.language = languageLocal;
+  changeMarkup(parameters);
+}
+
 function inputContent(key, code, content) {
   switch (code) {
     case 'Backspace':
-      actionsBackspace(inputField);
+      action.backspace(inputField);
       break;
     case 'Delete':
-      actionsDelete(inputField);
+      action.delete(inputField);
       break;
     case 'Enter':
-      actionsInput(inputField, '\n');
+      action.input(inputField, '\n');
       break;
     case 'ShiftRight':
       parameters.caseUp = !parameters.caseUp;
@@ -41,10 +47,10 @@ function inputContent(key, code, content) {
       changeMarkup(parameters);
       break;
     case 'Tab':
-      actionsInput(inputField, '  ');
+      action.input(inputField, '  ');
       break;
     default:
-      actionsInput(inputField, content);
+      action.input(inputField, content);
   }
 }
 
@@ -74,6 +80,7 @@ document.addEventListener('keydown', (event) => {
 
   if (code === 'AltLeft' && event.ctrlKey) {
     parameters.language = parameters.language === 'ru' ? 'eng' : 'ru';
+    localStorage.setItem('virtKeybLeng', parameters.language);
     changeMarkup(parameters);
   }
 });

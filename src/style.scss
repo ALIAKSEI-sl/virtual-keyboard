@@ -43,29 +43,39 @@
   height: 40px;
   display: flex;
   justify-content: space-between;
-  
+
 }
 
 .key {
-    width: 40px;
-    height: 40px;
-    font-weight: 500;
-    line-height: 40px;
-    text-align: center;
-    color: #ffffff;
-    background: #444444;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: border-radius 0.3s, background-color 0.3s;
+  width: 40px;
+  height: 40px;
+  font-weight: 500;
+  line-height: 40px;
+  text-align: center;
+  color: #ffffff;
+  background-color: #444444;
+  border-radius: 3px;
+  cursor: pointer;
+  user-select: none;
+  transition: border-radius 0.3s, background-color 0.3s;
 }
 
-.caseDown, .caseUp, .shiftCaps, .caps {
+.key:hover {
+  background-color: #32aae2;
+}
+
+.caseDown,
+.caseUp,
+.shiftCaps,
+.caps {
   display: block;
   min-height: 40px;
   width: 100%;
 }
 
-.Backspace, .CapsLock, .ShiftLeft {
+.Backspace,
+.CapsLock,
+.ShiftLeft {
   width: 100px;
 }
 
@@ -77,7 +87,8 @@
   width: 50px;
 }
 
-.Enter, .ShiftRight {
+.Enter,
+.ShiftRight {
   width: 86px;
 }
 
@@ -85,6 +96,31 @@
   width: 330px;
 }
 
+.AltLeft,
+.AltRight,
+.ArrowUp,
+.ArrowLeft,
+.ArrowDown,
+.ArrowRight,
+.Backspace,
+.CapsLock,
+.ControlLeft,
+.ControlRight,
+.Delete,
+.Enter,
+.ShiftLeft,
+.ShiftRight,
+.Tab,
+.MetaLeft {
+  font-weight: 600;
+  background-color: #222222;
+}
+
 .hidden {
   display: none;
+}
+
+.active {
+  background-color: #32aae2;
+  border-radius: 50px;
 }

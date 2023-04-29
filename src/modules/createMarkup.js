@@ -19,7 +19,7 @@ wrapper.append(keyboardBlock);
 
 const descriptionOs = document.createElement('p');
 descriptionOs.classList.add('description');
-descriptionOs.textContent = 'RSS Виртуальная клавиатура';
+descriptionOs.textContent = 'Клавиатура создана в операционной системе Windows';
 wrapper.append(descriptionOs);
 
 const descriptionLang = document.createElement('p');

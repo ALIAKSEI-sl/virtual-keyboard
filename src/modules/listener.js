@@ -14,30 +14,76 @@ const parameters = {
   caps: false,
 };
 
-document.addEventListener('keydown', (event) => {
-  inputField.focus();
-  const key = document.querySelector(`.${event.code}`);
-  if (key) {
-    if (event.code === 'Tab') {
-      key.classList.add('active');
-      const startPosition = inputField.selectionStart;
-      event.preventDefault();
-      actionsInput(inputField, '  ');
-      inputField.selectionStart = startPosition + 2;
-    } else if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && !event.repeat) {
-      key.classList.add('active');
+function test(key, code, content) {
+  switch (code) {
+    case ('Backspace'): actionsBackspace(inputField);
+      break;
+    case ('Delete'): actionsDelete(inputField);
+      break;
+    case ('Enter'): actionsInput(inputField, '\n');
+      break;
+    case ('ShiftRight'):
       parameters.caseUp = !parameters.caseUp;
       changMarkup(parameters);
-    } else if (event.code === 'CapsLock') {
+      break;
+    case ('ControlRight'):
+    case ('AltRight'):
+    case ('AltLeft'):
+    case ('MetaLeft'):
+    case ('ControlLeft'):
+      break;
+    case ('ShiftLeft'):
+      parameters.caseUp = !parameters.caseUp;
+      changMarkup(parameters);
+      break;
+    case ('CapsLock'):
       key.classList.toggle('active');
       parameters.caps = !parameters.caps;
       changMarkup(parameters);
+      break;
+    case ('Tab'): actionsInput(inputField, '  ');
+      break;
+    default:
+      actionsInput(inputField, content);
+  }
+}
+
+document.addEventListener('keydown', (event) => {
+  // inputField.focus();
+  event.preventDefault();
+
+  const key = document.querySelector(`.${event.code}`);
+  if (key) {
+    const span = Array.from(key.children).find((item) => !item.classList.contains('hidden'));
+    const content = Array.from(span.children).find((item) => !item.classList.contains('hidden')).textContent;
+    if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight')) {
+      if (!event.repeat) {
+        test(key, event.code, content);
+        key.classList.add('active');
+      }
+    } else if (event.code === 'CapsLock') {
+      // key.classList.toggle('active');
+      test(key, event.code, content);
     } else {
       key.classList.add('active');
-      // event.preventDefault();
+      test(key, event.code, content);
     }
-  } else {
-    event.preventDefault();
+    // if (event.code === 'Tab') {
+    //   key.classList.add('active');
+    //   const startPosition = inputField.selectionStart;
+    //   actionsInput(inputField, '  ');
+    //   inputField.selectionStart = startPosition + 2;
+    // } else if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && !event.repeat) {
+    //   key.classList.add('active');
+    //   parameters.caseUp = !parameters.caseUp;
+    //   changMarkup(parameters);
+    // } else if (event.code === 'CapsLock') {
+    //   key.classList.toggle('active');
+    //   parameters.caps = !parameters.caps;
+    //   changMarkup(parameters);
+    // } else {
+    //   key.classList.add('active');
+    // }
   }
 
   if ((event.code === 'AltLeft' && event.ctrlKey)) {
@@ -47,14 +93,16 @@ document.addEventListener('keydown', (event) => {
 });
 
 document.addEventListener('keyup', (event) => {
-  const key = document.querySelector(`.${event.code}`);
-  if (key) {
-    if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && !event.repeat) {
-      key.classList.remove('active');
-      parameters.caseUp = !parameters.caseUp;
-      changMarkup(parameters);
-    } else if (event.code !== 'CapsLock') {
-      key.classList.remove('active');
+  if (event.code) {
+    const key = document.querySelector(`.${event.code}`);
+    if (key) {
+      if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && !event.repeat) {
+        key.classList.remove('active');
+        parameters.caseUp = !parameters.caseUp;
+        changMarkup(parameters);
+      } else if (event.code !== 'CapsLock') {
+        key.classList.remove('active');
+      }
     }
   }
 });
@@ -66,37 +114,7 @@ wrapper.addEventListener('mousedown', (event) => {
     if (code !== 'CapsLock') {
       key.style.borderRadius = '50px';
     }
-    switch (code) {
-      case ('Backspace'): actionsBackspace(inputField);
-        break;
-      case ('Delete'): actionsDelete(inputField);
-        break;
-      case ('Enter'): inputField.value += '\n';
-        break;
-      case ('ShiftRight'):
-        parameters.caseUp = !parameters.caseUp;
-        changMarkup(parameters);
-        break;
-      case ('ControlRight'):
-      case ('AltRight'):
-      case ('AltLeft'):
-      case ('MetaLeft'):
-      case ('ControlLeft'):
-        break;
-      case ('ShiftLeft'):
-        parameters.caseUp = !parameters.caseUp;
-        changMarkup(parameters);
-        break;
-      case ('CapsLock'):
-        key.classList.toggle('active');
-        parameters.caps = !parameters.caps;
-        changMarkup(parameters);
-        break;
-      case ('Tab'): actionsInput(inputField, '  ');
-        break;
-      default:
-        actionsInput(inputField, event.target.textContent);
-    }
+    test(key, code, event.target.textContent);
   }
 });
 

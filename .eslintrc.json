@@ -11,6 +11,10 @@
     "sourceType": "module"
   },
   "rules": {
-    "import/extensions": ["error", "always"]
+    "import/extensions": ["error", "always"],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-param-reassign": ["error", { "props": false }],
+    "no-lonely-if": 0,
+    "class-methods-use-this": "off"
   }
 }

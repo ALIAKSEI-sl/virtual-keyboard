@@ -72,6 +72,8 @@ document.addEventListener('keydown', (event) => {
         inputContent(key, code, content);
         key.classList.add('active');
       }
+    } else if (code === 'CapsLock') {
+      inputContent(key, code, content);
     } else {
       key.classList.add('active');
       inputContent(key, code, content);
